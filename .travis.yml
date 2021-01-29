@@ -1,0 +1,12 @@
+
+os:
+- linux
+- osx
+
+script:
+- bash travis-build-analyze.sh
+
+cache:
+  directories:
+  - "$HOME/.sonar/cache"
+  - "$HOME/.cfamily"

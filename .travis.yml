@@ -4,7 +4,10 @@ os:
 - osx
 
 script:
-- bash travis-build-analyze.sh
+- export OS_NAME=$TRAVIS_OS_NAME
+- export PROJECT_KEY=cpp-example-cmake-travis-$OS_NAME
+- export CFAMILY_CAHE_PATH=${TRAVIS_HOME}/.cfamily
+- bash generic-build-analyze.sh
 
 cache:
   directories:

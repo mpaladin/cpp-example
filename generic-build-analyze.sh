@@ -2,14 +2,16 @@
 
 set -euo pipefail
 
-if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+if [ "$OS_NAME" = "osx" ] || [ "$OS_NAME" = "macOS" ]; then
 curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-macosx-x86.zip
 unzip build-wrapper-macosx-x86.zip
 BWRAPPER=$(pwd)/build-wrapper-macosx-x86/build-wrapper-macosx-x86
+CFAMILY_THREADS=$(sysctl -n hw.ncpu)
 else
 curl -L -O https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
 unzip build-wrapper-linux-x86.zip
 BWRAPPER=$(pwd)/build-wrapper-linux-x86/build-wrapper-linux-x86-64
+CFAMILY_THREADS=$(nproc)
 fi
 
 mkdir build
@@ -23,10 +25,10 @@ unzip sonar-scanner-cli-4.5.0.2216.zip
 ./sonar-scanner-4.5.0.2216/bin/sonar-scanner \
   -Dsonar.host.url=https://sonarcloud.io \
   -Dsonar.organization=mpaladin \
-  -Dsonar.projectKey=cpp-example-cmake-travis-$TRAVIS_OS_NAME \
+  -Dsonar.projectKey=${PROJECT_KEY} \
   -Dsonar.login=${SONAR_TOKEN} \
   -Dsonar.sources=src \
   -Dsonar.cfamily.build-wrapper-output=bw-output \
   -Dsonar.cfamily.cache.enabled=true \
-  -Dsonar.cfamily.cache.path=${TRAVIS_HOME}/.cfamily \
-  -Dsonar.cfamily.threads=$(nproc)
+  -Dsonar.cfamily.cache.path=${CFAMILY_CAHE_PATH} \
+  -Dsonar.cfamily.threads=${CFAMILY_THREADS}

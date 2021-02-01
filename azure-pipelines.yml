@@ -1,0 +1,43 @@
+
+trigger:
+  branches:
+    include:
+    - main
+pr: none
+
+schedules:
+  - cron: "0 21 * * *"
+    displayName: Daily build at 21:00
+    branches:
+      include:
+        - master
+
+jobs:
+- job: macos
+  pool:
+    vmImage: 'macOS-latest'
+  steps:
+  - bash: |
+      set -euo pipefail
+      export OS_NAME=darwin
+      export PROJECT_KEY=cpp-example-cmake-azuredevops-$OS_NAME
+      export CFAMILY_CAHE_PATH=~/.cfamily
+      bash generic-build-analyze.sh
+    displayName: 'Build and analyze'
+    env:
+      SONAR_TOKEN: $(SONAR_TOKEN)
+
+- job: linux
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - bash: |
+      set -euo pipefail
+      export OS_NAME=linux
+      export PROJECT_KEY=cpp-example-cmake-azuredevops-$OS_NAME
+      export CFAMILY_CAHE_PATH=~/.cfamily
+      sudo apt-get install -y -qq cmake
+      bash generic-build-analyze.sh
+    displayName: 'Build and analyze'
+    env:
+      SONAR_TOKEN: $(SONAR_TOKEN)

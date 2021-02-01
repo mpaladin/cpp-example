@@ -1,0 +1,14 @@
+
+env:
+  SONAR_TOKEN: ENCRYPTED[cb80c0dd7df853cd7cb61d6b1088bde6092403614b6c6d3319b769f7d2d09737489de30e34f950723528860d1ff9095a]
+
+task:
+  matrix:
+    - { container: { image: rikorose/gcc-cmake:latest } }
+    - { macos_instance: { image: big-sur-xcode-12.4 } }
+  name: $CIRRUS_OS
+  build_analyze_script:
+    - export OS_NAME=$CIRRUS_OS
+    - export PROJECT_KEY=cpp-example-cmake-cirrusci-$OS_NAME
+    - export CFAMILY_CAHE_PATH=~/.cfamily
+    - bash generic-build-analyze.sh

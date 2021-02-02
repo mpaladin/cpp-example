@@ -1,6 +1,6 @@
 
 ## GitHub Actions
-[![GitHub Actions](https://github.com/mpaladin/cpp-example/workflows/CI/badge.svg?branch=main](https://github.com/mpaladin/cpp-example/actions?query=workflow%3ACI)
+[![GitHub Actions](https://github.com/mpaladin/cpp-example/workflows/CI/badge.svg?branch=main)](https://github.com/mpaladin/cpp-example/actions?query=workflow%3ACI)
 
 ## Azure DevOps
 [![Azure DevOps](https://dev.azure.com/mpaladin/mpaladin/_apis/build/status/mpaladin.cpp-example?branchName=main)](https://dev.azure.com/mpaladin/mpaladin/_build/latest?definitionId=3&branchName=main)

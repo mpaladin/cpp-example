@@ -1,0 +1,13 @@
+image: gcc
+
+build-job:
+  stage: build
+  before_script:
+    - apt-get update -y
+    - apt-get install -y cmake
+  script: |
+    set -euo pipefail
+    export OS_NAME=linux
+    export PROJECT_KEY=cpp-example-cmake-gitlabci-$OS_NAME
+    export CFAMILY_CAHE_PATH=~/.cfamily
+    bash generic-build-analyze.sh
